@@ -7,3 +7,5 @@ notebook
 tqdm
 ipywidgets
 xgboost
+flask
+requests
