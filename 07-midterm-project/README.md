@@ -35,7 +35,7 @@ https://www.kaggle.com/andrewmvd/heart-failure-clinical-data
 
 Following files are included in the repo:
 
-```bash
+```
 heart-failure-detection
 ├── Dockerfile <- Instructions to build Docker image
 ├── Pipfile <- Package dependency management file
@@ -53,7 +53,7 @@ heart-failure-detection
 
 For the project, Pipenv is used for package management. So, first we need to install Pipenv. Then run these commands to install the dependencies:
 
-```bash
+```
 git clone <repo>
 cd heart-failure-detection
 pipenv install
@@ -63,7 +63,7 @@ pipenv install
 
 Run jupyter notebook using the following command assuming we are inside the project directory:
 
-```bash
+```
 jupyter notebook
 ```
 
@@ -71,13 +71,13 @@ jupyter notebook
 
 The final model training codes are exported in this file. To train the model:
 
-```bash
+```
 python train.py
 ``` 
 
 For local deployment, start up the Flask server for prediction API:
 
-```bash
+```
 python predict.py
 ```
 
@@ -85,7 +85,7 @@ It will run the server on localhost using port 8080.
 
 Finally, send request to the prediction API `http://localhost:8080/predict` and get response:
 
-```bash
+```
 python predict_test.py
 ```
 
@@ -93,7 +93,7 @@ python predict_test.py
 
 The model is deployed on **Pythonanywhere** and can be accessed using:
 
-```bash
+```
 https://mdrkb.pythonanywhere.com/predict
 ```
 
@@ -106,7 +106,7 @@ If everything is okay, then the API should be up and running.
 
 To test the cloud API, again run `predict_test.py` from locally using the cloud API URL. We'll get output similiar to this:
 
-```JSON
+```
 [
   {'heart_failure': True, 
     'heart_failure_probability': '99.99%', 
