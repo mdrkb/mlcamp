@@ -13,7 +13,7 @@ import xgboost as xgb
 # Parameters
 
 n_splits = 5
-output_file = f"model.bin"
+output_file = "model.bin"
 
 
 # Read dataset
@@ -91,10 +91,10 @@ for train_idx, val_idx in kfold.split(df_train_full):
     auc = roc_auc_score(y_val, y_pred)
     scores.append(auc)
 
-    print(f"AUC on fold {fold} is {auc}")
+    print("AUC on fold {} is {}".format(fold, auc))
     fold = fold + 1
 
-print(f"Validation results: {np.mean(scores).round(3)} +- {np.std(scores).round(3)}")
+print("Validation results: {} +- {}".format(np.mean(scores).round(3), np.std(scores).round(3)))
 
 
 # Final model Training
@@ -107,4 +107,4 @@ y_pred = predict(model, dv, df_test, df_test["DEATH_EVENT"].values)
 with open(output_file, "wb") as output:
     pickle.dump((model, dv), output)
 
-print(f"The model is saved to {output_file}")
+print("The model is saved to {}".format(output_file))

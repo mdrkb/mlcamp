@@ -2,6 +2,7 @@ import requests
 
 
 url = "http://localhost:8080/predict"
+# url = "https://mdrkb.pythonanywhere.com/predict"
 
 record_true = {
     "age": 40.0,
