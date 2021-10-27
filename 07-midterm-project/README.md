@@ -31,14 +31,100 @@ https://www.kaggle.com/andrewmvd/heart-failure-clinical-data
 - time: Follow-up period (days).
 - DEATH_EVENT: If the patient deceased during the follow-up period (boolean).
 
-## Running the Notebook
+## Repo Structure
+
+Following files are included in the repo:
+
+```bash
+heart-failure-detection
+├── Dockerfile <- Instructions to build Docker image
+├── Pipfile <- Package dependency management file
+├── Pipfile.lock <- Package dependency lock management file
+├── README.md <- Getting started guide of the project
+├── heart_failure_clinical_records_dataset.csv <- Dataset
+├── model.bin <- Exported trained model
+├── notebook.ipynb <- Jupyter notebook with all codes
+├── predict.py <- Model prediction API script for local deployment
+├── preduct_test.py <- Model prediction API script for testing
+└── train.py <- Final model training script
+```
+
+## Installing Dependencies
+
+For the project, Pipenv is used for package management. So, first we need to install Pipenv. Then run these commands to install the dependencies:
+
+```bash
+git clone <repo>
+cd heart-failure-detection
+pipenv install
+```
+
+## Running the Jupyter Notebook
+
+Run jupyter notebook using the following command assuming we are inside the project directory:
+
+```bash
+jupyter notebook
+```
+
+## Running the Model Locally
+
+The final model training codes are exported in this file. To train the model:
+
+```bash
+python train.py
+``` 
+
+For local deployment, start up the Flask server for prediction API:
+
+```bash
+python predict.py
+```
+
+It will run the server on localhost using port 8080.
+
+Finally, send request to the prediction API `http://localhost:8080/predict` and get response:
+
+```bash
+python predict_test.py
+```
+
+## Running the Model in Cloud 
+
+The model is deployed on **Pythonanywhere** and can be accessed using:
+
+```bash
+https://mdrkb.pythonanywhere.com/predict
+```
+
+The API takes JSON array of records as input and returns a response JSON array.
+
+How to deploy a basic Flask application to Pythonanywhere can be found [here](https://github.com/nindate/ml-zoomcamp-exercises/blob/main/how-to-use-pythonanywhere.md). 
+Only upload the `heart_failure_clinical_records_dataset.csv`, `train.py` and `predict.py` files inside app directory.
+Then open a terminal and run `train.py` and `predict.py` files. Finally, reload the application.
+If everything is okay, then the API should be up and running.
+
+To test the cloud API, again run `predict_test.py` from locally using the cloud API URL. We'll get output similiar to this:
+
+```JSON
+[
+  {'heart_failure': True, 
+    'heart_failure_probability': '99.99%', 
+    'id': 0
+  }, 
+  {
+    'heart_failure': False, 
+    'heart_failure_probability': '99.886%', 
+    'id': 1
+  }
+]
+```
+
+Notes:
+- Pythonanywhere instance has almost all the necessary packages installed. So, we don't need to install packages manually.
+- Some packages are not up to date. So, there might be compatibility issue specially with Scikit-Learn and XGBoost.
+For example changing `dv.get_feature_names_out()` to `dv.get_feature_names()` for lower versions of Scikit-Learn.
+
+## Running the Docker Image
 
 Will be added soon.
-
-## Using the Model API
-
-Will be added soon.
-
-## Folder Structure
-
-Will be added later.
