@@ -10,6 +10,8 @@ People with cardiovascular disease or who are at high cardiovascular risk (due t
 
 That's why in this project, we will try several machine learning classification models to come up with a solution. We'll try to predict DEATH_EVENT of a person based on a set of attributes.
 
+Original source: https://github.com/mdrkb/mlcamp/tree/main/07-midterm-project
+
 ## Dataset
 
 The dataset is collected from Kaggle:  
@@ -38,27 +40,66 @@ The following files are included in the repo:
 ```
 heart-failure-prediction
 ├── Dockerfile <- Instructions to build Docker image
-├── requirements.txt <- Package dependency management file
 ├── README.md <- Getting started guide of the project
 ├── heart_failure_clinical_records_dataset.csv <- Dataset
 ├── model.bin <- Exported trained model
 ├── notebook.ipynb <- Jupyter notebook with all codes
 ├── predict.py <- Model prediction API script for local deployment
 ├── preduct_test.py <- Model prediction API script for testing
+├── requirements.txt <- Package dependency management file
 └── train.py <- Final model training script
 ```
 
-## Installing Dependencies
+## Create a Virtual Environment
 
-For the project, Pipenv is used for package management. So, first, we need to install Pipenv. Then run these commands to install the dependencies:
+Clone the repo:
 
 ```
 git clone <repo>
 cd heart-failure-prediction
-pipenv install
 ```
 
-## Running the Jupyter Notebook
+For the project, **virtualenv** is used. To install virtualenv:
+
+```
+pip install virtualenv
+```
+
+To create a virtual environment:
+
+```
+virtualenv venv
+```
+
+If it doesn't work then try:
+
+```
+python -m virtualenv venv
+```
+
+## Activate the Virtual Environment:
+
+For Windows:
+
+```
+.\venv\Scripts\activate
+```
+
+For Linux and MacOS:
+
+```
+source venv/bin/activate
+```
+
+## Install Dependencies
+
+Install the dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+## Run the Jupyter Notebook
 
 Run Jupiter notebook using the following command assuming we are inside the project directory:
 
@@ -66,7 +107,7 @@ Run Jupiter notebook using the following command assuming we are inside the proj
 jupyter notebook
 ```
 
-## Running the Model Locally
+## Run the Model Locally
 
 The final model training codes are exported in this file. To train the model:
 
@@ -80,6 +121,12 @@ For local deployment, start up the Flask server for prediction API:
 python predict.py
 ```
 
+Or use a WSGI server, Waitress to run:
+
+```
+waitress-serve --listen=0.0.0.0:8080 predict:app
+```
+
 It will run the server on localhost using port 8080.
 
 Finally, send a request to the prediction API `http://localhost:8080/predict` and get the response:
@@ -88,7 +135,7 @@ Finally, send a request to the prediction API `http://localhost:8080/predict` an
 python predict_test.py
 ```
 
-## Running the Model in Cloud 
+## Run the Model in Cloud 
 
 The model is deployed on **Pythonanywhere** and can be accessed using:
 
@@ -124,18 +171,18 @@ Notes:
 - Some packages are not up to date. So, there might be compatibility issues, especially with Scikit-Learn and XGBoost.
 For example changing `dv.get_feature_names_out()` to `dv.get_feature_names()` for lower versions of Scikit-Learn.
 
-## Running the Docker Image
+## Build Docker Image
 
-Build docker image:
+To build a Docker image:
 
 ```
 docker build -t heart-failure-prediction:1.0 .
 ```
 
-Run the image as a container:
+TO run the image as a container:
 
 ```
 docker run --name heart-failure-prediction -it --rm -p 8080:8080 heart-failure-prediction:1.0 
 ```
 
-To test the predict API running in docker, again run `predict_test.py` locally.
+To test the prediction API running in docker, again run `predict_test.py` locally.
