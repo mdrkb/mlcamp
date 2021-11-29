@@ -11,3 +11,4 @@ flask
 requests
 waitress
 tensorflow
+keras-image-helper
